@@ -1,0 +1,54 @@
+body {
+  background-image:url("images/concert-background.jpg");
+  margin: 0;
+  padding: 0;
+}
+
+#ss{
+  width:100%;
+  text-align:center;
+}
+#ss-words {
+  margin: 0 auto;
+}
+#ss-logo{
+  margin: 0 auto;
+  width: 15%;
+  height: auto;
+}
+#button-line{
+  text-align:center;
+}
+.btn {
+  background: #008717;
+  background-image: -webkit-linear-gradient(top, #008717, #90b82b);
+  background-image: -moz-linear-gradient(top, #008717, #90b82b);
+  background-image: -ms-linear-gradient(top, #008717, #90b82b);
+  background-image: -o-linear-gradient(top, #008717, #90b82b);
+  background-image: linear-gradient(to bottom, #008717, #90b82b);
+  -webkit-border-radius: 15;
+  -moz-border-radius: 15;
+  border-radius: 15px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+.btn:hover {
+  background: #038a15;
+  text-decoration: none;
+}
+
+#spotify-container{
+  align:center;
+  width:100%;
+  position:absolute;
+  bottom:0;
+  right:0;
+}
+#spotify-logo{
+  width: 10%;
+  height:auto;
+  float:right;
+}
