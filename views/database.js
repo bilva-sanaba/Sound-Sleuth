@@ -33,7 +33,7 @@ function writeData(top,key,value,directory){
   updatedObj[key] = value;
   db.ref(directory+top).update(updatedObj);
 }
-//Gets highscores for a user or artist
+//Gets highscores for a user or artist looping through them
 function getScores(key,directory){
   var query=firebase.database().ref(directory+key).orderByKey();
    query.once('value').then(function(snapshot) {
