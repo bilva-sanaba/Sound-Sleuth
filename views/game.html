@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="spotify.js"></script>
+    <script src="gamelogic.js"></script>
+    <script>loadSongs();</script>
   </head>
   <body>
     <div id = "body">
@@ -15,22 +16,12 @@
       <div class="ss">
         <img id="ss-logo" src ="images/ss-logo.png" alt = "Sound Sleuth Logo">
       </div>
-      <div class=search-options>
-        <input id="artist-search"></input>
-        <button onclick='searchArtist();' class=btn> Search for Artist </button>
-      </div>
-    <div class=search-options>
-    <img id="artist-art"></img>
-    </div>
-    <div class= search-options>
-      <button onclick='getTracksFromArtistSearch();'class=btn> Play With This Artist </button>
-    </div>
       <div>
-        <!-- <audio id="trackPreview" controls autoplay>
+        <audio id="trackPreview" controls autoplay>
             <source id ="previewSource" src="" type="audio/mpeg"></source>
         </audio>
-        <button onclick = 'next();'>Next</button>
-        <button onclick = 'previous();'>Previous</button> -->
+        <button class=btn onclick = 'next();'>Next</button>
+        <button class=btn onclick = 'previous();'>Previous</button>
       </div>
       <div id=spotify-container>
         <a href= "http:/www.spotify.com">

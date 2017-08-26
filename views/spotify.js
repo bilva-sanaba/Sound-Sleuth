@@ -18,7 +18,7 @@ function searchArtist(){
         success: function(response) {
           console.log(response);
           artistID = (response.artists.items)[0].id;
-          document.getElementById("albumArt").src = ((response.artists.items)[0].images)[2].url;
+          document.getElementById("artist-art").src = ((response.artists.items)[0].images)[0].url;
         }
       });
     }
@@ -29,6 +29,8 @@ function searchArtist(){
 
 //Gets artistID from a previously run searchArtist(). Stores all songs from that artist in allSongs.
 function getTracksFromArtistSearch() {
+  current = 0;
+  allSongs = [];
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -66,7 +68,6 @@ function getTracksFromAlbum(currentAlbum){
         'Authorization': 'Bearer ' + param.Token
       },
       success: function(response) {
-        console.log(response);
         songs = response.items;
         for (var i =0; i<songs.length;i++){
           url = songs[i].preview_url;
@@ -74,26 +75,11 @@ function getTracksFromAlbum(currentAlbum){
             allSongs.push(songs[i]);
           }
         }
+        window.localStorage.setItem('songs', JSON.stringify(allSongs));
+        window.location.href = '/game';
       }
     });
 }
-
-//Plays next song in allSongs
-function next(){
-  if (current<allSongs.length){
-    document.getElementById("trackPreview").src = allSongs[current].preview_url;
-    current=current+1;
-  }
-}
-//Plays previous song in allSongs
-function previous(){
-  if (current>0){
-    document.getElementById("trackPreview").src = allSongs[current].preview_url;
-    current=current-1;
-  }
-}
-
-
 
 //@deprecated
 //Method originally used to search for artist and load songs at same time

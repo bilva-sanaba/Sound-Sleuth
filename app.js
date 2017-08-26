@@ -68,6 +68,10 @@ const app = express();
   app.get('/play', ensureAuthenticated, function(req, res){
     res.render('./views/play.html', { user: req.user });
   });
+  //Renders game page
+  app.get('/game', ensureAuthenticated, function(req, res){
+    res.render('./views/game.html', { user: req.user });
+  });
   //Renders instruction page
   app.get('/instructions', function(req, res){
     res.render('./views/instructions.html', { user: req.user });
