@@ -1,4 +1,4 @@
-//Initializes Firebase (should be included in head of index)
+//Should be hid in config file
 function initializeFirebase(){
   //Sound-Sleuth settings
   var config = {

@@ -13,7 +13,7 @@ var express = require('express'),
 //Global variable to be used for storing accessTokens
 var token = "";
 
-// These should be hidden from GitHub eventually
+// These should be hidden from GitHub eventually in config file
 var client_id = 'f46a5b9d4e114fa8ac0aedbc4fd9f2b8'; // Your client id
 var client_secret = '80ae9abb0f7443e5a5360a18562cd0c9'; // Your secret
 var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
