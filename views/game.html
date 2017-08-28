@@ -6,7 +6,6 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="gamelogic.js"></script>
-    <script>loadSongs();</script>
   </head>
   <body>
     <div id = "body">
@@ -16,18 +15,28 @@
       <div class="ss">
         <img id="ss-logo" src ="images/ss-logo.png" alt = "Sound Sleuth Logo">
       </div>
-      <div>
+      <div class="first-buttons">
+        <button class='btn gameBtn' id=song1 onclick='correct();'>Song1</button>
+        <button class='btn gameBtn'id=song2  onclick='correct();'>Song2</button>
+      </div>
+      <div class="second-buttons">
+        <button class='btn gameBtn' id=song3  onclick='correct();'>Song3</button>
+        <button class='btn gameBtn'id=song4  onclick='correct();'>Song4</button>
+      </div>
+      <audio id=trackPreview autoplay></audio>
+      <!-- <div>
         <audio id="trackPreview" controls autoplay>
             <source id ="previewSource" src="" type="audio/mpeg"></source>
         </audio>
         <button class=btn onclick = 'next();'>Next</button>
         <button class=btn onclick = 'previous();'>Previous</button>
-      </div>
+      </div> -->
       <div id=spotify-container>
         <a href= "http:/www.spotify.com">
         <img id="spotify-logo" src="images/spotify-transparent.png" alt = "Spotify Logo" >
       </a>
       </div>
     </div>
+    <script>load();</script>
   </body>
 </html>

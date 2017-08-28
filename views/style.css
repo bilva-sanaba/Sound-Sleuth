@@ -63,3 +63,18 @@ background-size: cover;
   height:auto;
   float:right;
 }
+.first-buttons{
+	padding-top:2em;
+	text-align:center;
+}
+.second-buttons{
+	text-align:center;
+	padding-top:2em;
+}
+.gameBtn{
+	width:25%;
+	margin-right:10%;
+	margin-left:10%;
+	white-space:normal;
+	word-wrap:break-word;
+}

@@ -1,5 +1,6 @@
 var allSongs = []; //where all songs from an artist will be stored as spotify track objects
 var artistID =""; //artistID from searchArtist
+var artistName= ""//artist name from searchArtist
 var current = 0; //current song index
 
 //Gets field from artist-search input. Sets global artistID to search result
@@ -16,8 +17,8 @@ function searchArtist(){
           'Authorization': 'Bearer ' + param.Token
         },
         success: function(response) {
-          console.log(response);
           artistID = (response.artists.items)[0].id;
+          artistName = (response.artists.items)[0].name;
           document.getElementById("artist-art").src = ((response.artists.items)[0].images)[0].url;
         }
       });
@@ -36,6 +37,7 @@ function getTracksFromArtistSearch() {
     if (this.readyState == 4 && this.status == 200) {
       param = JSON.parse(this.responseText);
       getTracksFromArtist(artistID);
+      window.localStorage.setItem('artist', artistName);
     }
   };
   xhttp.open("GET", "/token", true);
