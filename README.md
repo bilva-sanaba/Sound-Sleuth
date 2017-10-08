@@ -1,14 +1,26 @@
-"# sound-sleuth"
+# Sound Sleuth
+Bilva Sanaba
+Summer 2017
 
-Notes for now:
-Main Screen has login and instructions
-instructions links to instructions.html in views which must be completed (@vikas)
-login links to spotify auth which redirects to localhost:8888/callback which redirects either to index.html or play.html
+## Get Started
+The program runs through node.js and requires several modules which can be downloaded as listed below: 
 
+`npm install node-modules`
+`npm install body-parser`
+`npm install cookie-parser`
+`npm install method-override`
+`npm install express-session`
+`npm install passport`
+`npm install swig`
+`npm install consolidate`
 
-Play allows you to search for an artist displaying its picture, then choose to play which redirects to game.html
-game.html is not started but has javascript linked to gamelogic.js (@justin)
+The final product is also live at: Temporarily Down
 
-gamelogic.js has code for retrieving all the songs. These must be converted into some quiz format. (@justin)
-
-Possible bugs: same songs included multiple times
+## Using the Program
+*The program can be run with node js: 
+`node app.js`
+It will be launched at localhost:8888
+*Login will redirect to a spotify login. 
+*Enter an artist name and press search. If the desired artist is found press play.
+*Listen to the streamed song and guess the name. 
+*You lose if you guess the wrong name. The scores are stored on Google Firebase. 
