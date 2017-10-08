@@ -1,10 +1,12 @@
-<!doctype html>
 <html>
   <head>
     <title>Sound Sleuth</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script>initializeFirebase()</script>
     <script src="gamelogic.js"></script>
   </head>
   <body>
@@ -15,21 +17,16 @@
       <div class="ss">
         <img id="ss-logo" src ="images/ss-logo.png" alt = "Sound Sleuth Logo">
       </div>
-      <div class="first-buttons">
-        <button class='btn gameBtn' id=song1 onclick='correct();'>Song1</button>
-        <button class='btn gameBtn'id=song2  onclick='correct();'>Song2</button>
+      <div id=mid-spacing>
       </div>
-      <div class="second-buttons">
-        <button class='btn gameBtn' id=song3  onclick='correct();'>Song3</button>
-        <button class='btn gameBtn'id=song4  onclick='correct();'>Song4</button>
-      </div>
-      <audio id=trackPreview autoplay></audio>
+        <div id = "button-line">
+          <button onclick='showScores();' class="btn">Log Scores</button>
+          </div>
       <div id=spotify-container>
         <a href= "http:/www.spotify.com">
         <img id="spotify-logo" src="images/spotify-transparent.png" alt = "Spotify Logo" >
       </a>
       </div>
     </div>
-    <script>load();</script>
   </body>
 </html>

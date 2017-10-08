@@ -2,32 +2,28 @@ var allSongs = []; //where all songs from an artist will be stored as spotify tr
 var artistID =""; //artistID from searchArtist
 var current = 0; //current song index
 var score = -1;
-//load
+
+//Generates song list and starts first song
 function load(){
   loadSongs();
   correct();
 }
-//From spotify all songs are stored in window local storage.
+
+//Retrieves songs stored in localStorage. Filters unwanted songs and orders them.
 function loadSongs(){
   allSongs = JSON.parse(window.localStorage.getItem('songs'));
   filterSongs();
   orderSongs();
 }
 
-function correct(){
-  nextSong();
-  updateChoices();
-}
-function incorrect(){
-  lose();
-}
+//Removes unwanted songs, currently removes duplicates ie songs that have same name
 function filterSongs(){
   var oneOccurenceSongs=[]
   for (var i=0;i<allSongs.length;i++){
     var song = allSongs[i];
     var occurred = false;
     for (var j=0;j<oneOccurenceSongs.length;j++){
-      if (song.name===oneOccurenceSongs.name){
+      if (song.name===oneOccurenceSongs[j].name){
         occurred=true;
       }
     }
@@ -37,9 +33,37 @@ function filterSongs(){
   }
   allSongs=oneOccurenceSongs;
 }
+//Randomly shuffles song order
 function orderSongs(){
-  allSongs=allSongs;
+  for (let i = allSongs.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [allSongs[i - 1], allSongs[j]] = [allSongs[j], allSongs[i - 1]];
+    }
 }
+//For correct answer, goes to next song and changes buttons
+function correct(){
+  nextSong();
+  updateChoices();
+}
+//For incorrect answer, lose game
+function incorrect(){
+  lose();
+}
+
+//Plays next song in allSongs. Increases score by one. If no more songs, wins game.
+function nextSong(){
+  current=current+1;
+  if (current<allSongs.length){
+    document.getElementById("trackPreview").src = allSongs[current].preview_url;
+    score=score+1;
+  }else{
+    if (current==allSongs.length){
+      win();
+    }
+  }
+}
+
+//Changes song names of buttons and appropriately sets onclick methods
 function updateChoices(){
   var num = Math.floor(Math.random() * 4)+1;
   var songName = allSongs[current].name;
@@ -57,6 +81,9 @@ function updateChoices(){
     }
   }
 }
+//Parameters: range - numbers that could be included
+// resultCount - number of unique random numbers
+// exclude - number to exclude
 function generateRandomNumbers(range,resultCount,exclude){
   var myArray = [];
   while(myArray.length!=resultCount) {
@@ -76,28 +103,89 @@ function generateRandomNumbers(range,resultCount,exclude){
   }
   return myArray;
 }
-//Plays next song in allSongs
-function nextSong(){
-  current=current+1;
-  if (current<allSongs.length){
-    document.getElementById("trackPreview").src = allSongs[current].preview_url;
-    score=score+1;
-  }else{
-    if (current==allSongs.length){
-      win();
-    }
-  }
-}
+
+//What to do when win
 function win(){
-  console.log('win');
+  window.localStorage.setItem('correct', current);
+  window.localStorage.setItem('total', allSongs.length);
+  window.location.href = '/endGame';
 }
+//What to do when lose
 function lose(){
-  console.log('lose');
+  window.localStorage.setItem('correct', current);
+  window.localStorage.setItem('total', allSongs.length);
+  window.location.href = '/endGame';
 }
-//Plays previous song in allSongs
+function showScores(){
+  updateHighScore(window.localStorage.getItem('user'),
+                  window.localStorage.getItem('artist')
+                  ,window.localStorage.getItem('correct'));
+}
+// @deprecated
 function previous(){
   if (current>0){
     document.getElementById("trackPreview").src = allSongs[current].preview_url;
     current=current-1;
   }
+}
+
+//Should be hid in config file
+function initializeFirebase(){
+  //Sound-Sleuth settings
+  var config = {
+    apiKey: "AIzaSyBy26gElIgeGYW2pb5GUCRRlk6VrZA92P4",
+    authDomain: "sound-sleuth.firebaseapp.com",
+    databaseURL: "https://sound-sleuth.firebaseio.com",
+    projectId: "sound-sleuth",
+    storageBucket: "sound-sleuth.appspot.com",
+    messagingSenderId: "1080981823828"
+  };
+  firebase.initializeApp(config);
+}
+//Checks if score is a new high score, if so updates database
+function updateHighScore(user,artist,score){
+  var db=firebase.database();
+   db.ref('Users/'+user+'/'+artist).once('value').then(function(snapshot) {
+      oldScore = snapshot.val();
+        if (score>oldScore){
+          writeAllData(artist,user,score);
+      }
+  });
+}
+//Adds data for a new high score to database
+function writeAllData(artist,user,score){
+  writeData(artist,user,score,'Artists/');
+  writeData(user,artist,score,'Users/');
+}
+//Adds data to one child of database
+function writeData(top,key,value,directory){
+  var db = firebase.database();
+  var updatedObj = {};
+  updatedObj[key] = value;
+  db.ref(directory+top).update(updatedObj);
+}
+//Gets highscores for a user or artist looping through them
+function getScores(key,directory){
+  var query=firebase.database().ref(directory+key).orderByKey();
+   query.once('value').then(function(snapshot) {
+     snapshot.forEach(function(child){
+       useScores(child);
+     });
+   });
+}
+
+function useScores(snapshot){
+  //Method to be filled as needed
+  //Parameter is a snapshot with key as either an artist or user and value score
+}
+
+
+//TESTING METHODS (to be removed)
+// Helper method for testing. Retrieves data from fields (fields must be unccomented from index.html)
+function storeScores(){
+  var artist = document.getElementById('artist').value;
+  var user = document.getElementById('name').value;
+  var score = document.getElementById('score').value;
+  //Add method here to test database with appropriate parameters
+  updateHighScore(user,artist,score);
 }

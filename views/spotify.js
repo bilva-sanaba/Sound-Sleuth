@@ -38,6 +38,7 @@ function getTracksFromArtistSearch() {
       param = JSON.parse(this.responseText);
       getTracksFromArtist(artistID);
       window.localStorage.setItem('artist', artistName);
+      window.localStore.setItem('userId', param.Id);
     }
   };
   xhttp.open("GET", "/token", true);

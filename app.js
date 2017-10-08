@@ -3,12 +3,11 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     methodOverride = require('method-override'),
-    request = require('request'),
     session = require('express-session'),
     passport = require('passport'),
     swig = require('swig'),
     consolidate = require('consolidate'),
-    SpotifyStrategy = require('./node_modules/passport-spotify/lib/passport-spotify').Strategy;
+    SpotifyStrategy = require('passport-spotify').Strategy;
 
 //Global variable to be used for storing accessTokens
 var token = "";
@@ -81,6 +80,9 @@ const app = express();
     passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
     function(req, res){
   // The request will be redirected to spotify for authentication, so this function will not be called.
+  });
+  app.get('/endGame', function(req, res){
+    res.render('./views/endGame.html', { user: req.user });
   });
   //Returns a JSON object with all important user info
   app.get('/token',function(req, res){
