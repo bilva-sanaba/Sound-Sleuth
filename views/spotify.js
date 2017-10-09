@@ -6,7 +6,7 @@ var current = 0; //current song index
 //Gets field from artist-search input. Sets global artistID to search result
 //Changes image to that of artist
 function searchArtist(){
-  var artistName = document.getElementById("artist-search").value;
+  artistName = document.getElementById("artist-search").value;
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {

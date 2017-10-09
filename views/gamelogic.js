@@ -112,7 +112,7 @@ function win(){
 }
 //What to do when lose
 function lose(){
-  window.localStorage.setItem('correct', current);
+  window.localStorage.setItem('correct', current-1);
   window.localStorage.setItem('total', allSongs.length);
   window.location.href = '/endGame';
 }
@@ -120,6 +120,7 @@ function showScores(){
   updateHighScore(window.localStorage.getItem('user'),
                   window.localStorage.getItem('artist')
                   ,window.localStorage.getItem('correct'));
+  getScores(window.localStorage.getItem('artist'),"Artists/");
 }
 // @deprecated
 function previous(){
@@ -178,6 +179,50 @@ function useScores(snapshot){
   //Method to be filled as needed
   //Parameter is a snapshot with key as either an artist or user and value score
 }
+
+function getScores(key,directory){
+  var query=firebase.database().ref(directory+key).orderByKey();
+   query.once('value').then(function(snapshot) {
+     snapshot.forEach(function(child){
+       useScores(child);
+     });
+   });
+}
+
+//This should populate the table as it is given a snapshot with key name and value score
+function useScores(snapshot){
+  console.log(snapshot.key());
+  //Method to be filled as needed
+  //Parameter is a snapshot with key as either an artist or user and value score
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //TESTING METHODS (to be removed)

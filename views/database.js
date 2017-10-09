@@ -44,6 +44,7 @@ function getScores(key,directory){
 }
 
 function useScores(snapshot){
+  console.log(snapshot.val());
   //Method to be filled as needed
   //Parameter is a snapshot with key as either an artist or user and value score
 }
