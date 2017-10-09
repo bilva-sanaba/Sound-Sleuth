@@ -109,8 +109,8 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-//console.log('Listening on 8888');
-var port = process.env.PORT || 8080;
+console.log('Listening on 8888');
+var port = process.env.PORT || 8888;
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
 });
