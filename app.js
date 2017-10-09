@@ -84,6 +84,9 @@ const app = express();
   app.get('/endGame', function(req, res){
     res.render('./views/endGame.html', { user: req.user });
   });
+  app.get('/highscores', function(req, res){
+    res.render('./views/highscores.html', { user: req.user });
+  });
   //Returns a JSON object with all important user info
   app.get('/token',function(req, res){
           return res.json({ Token: token, Id: req.user.id, Photo: req.user.photos[0]});

@@ -2,6 +2,7 @@ var allSongs = []; //where all songs from an artist will be stored as spotify tr
 var artistID =""; //artistID from searchArtist
 var current = 0; //current song index
 var score = -1;
+var allScores = [];
 
 //Generates song list and starts first song
 function load(){
@@ -148,8 +149,8 @@ function updateHighScore(user,artist,score){
   var db=firebase.database();
    db.ref('Users/'+user+'/'+artist).once('value').then(function(snapshot) {
       oldScore = snapshot.val();
-        if (score>oldScore){
-          writeAllData(artist,user,score);
+        if (parseInt(score)>oldScore){
+          writeAllData(artist,user,parseInt(score));
       }
   });
 }
@@ -181,17 +182,18 @@ function useScores(snapshot){
 }
 
 function getScores(key,directory){
-  var query=firebase.database().ref(directory+key).orderByKey();
+  var query=firebase.database().ref(directory+key).orderByValue();
    query.once('value').then(function(snapshot) {
      snapshot.forEach(function(child){
-       useScores(child);
+       allScores.push([child.key,child.val()]);
      });
+     allScores.reverse();
+     fillHighScoreTable(allScores);
    });
 }
 
 //This should populate the table as it is given a snapshot with key name and value score
 function useScores(snapshot){
-  console.log(snapshot.key());
   //Method to be filled as needed
   //Parameter is a snapshot with key as either an artist or user and value score
 }
@@ -199,9 +201,40 @@ function useScores(snapshot){
 
 
 
+function fillHighScoreTable(allScores){
+  var rank = 1;
+  prevScore=0;
+  for (var i=0;i<allScores.length;i++){
+    if (prevScore>allScores[i][1]){
+      rank=rank+1;
+    }
+    prevScore = allScores[i][1];
+    var row = $("<tr>");
+    row.append(makeDataRow(allScores[i],rank));
+    $("#myTable tbody").append(row);
+  }
+  //put into table rank, key val, 
+}
+
+  function makeDataRow(score,rank){
+    var ret = "<td>" + rank +"" + "</td>";
+    ret = ret +  "<td>" + score[0] + "</td>";
+    ret = ret +  "<td>" + score[1] + "</td></tr>";
+    return ret;
+  }
 
 
-
+function showUserScores(){
+  user = window.localStorage.getItem('user');
+  var query=firebase.database().ref("Users/"+user).orderByValue();
+   query.once('value').then(function(snapshot) {
+     snapshot.forEach(function(child){
+       allScores.push([child.key,child.val()]);
+     });
+     allScores.reverse();
+     fillHighScoreTable(allScores);
+   });
+}
 
 
 
