@@ -21,7 +21,7 @@ The program runs through node.js and requires several modules which can be downl
 
 `npm install consolidate`
 
-The final product is also live at: Temporarily Down
+The final product is also live at: <https://soundsleuth.herokuapp.com>
 
 ## Using the Program
 *The program can be run with node js: 
